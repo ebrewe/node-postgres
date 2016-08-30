@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_TODOS = "FETCH_TODOS";
 export const CREATE_TODO = "CREATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
+export const UPDATE_TODO = "UPDATE_TODO";
 
 const todosURI = '/api/v1/todos/'
 
@@ -28,6 +29,15 @@ export function deleteTodo(props){
   console.warn('Deleting #' + props.id);
   return {
     type:DELETE_TODO,
+    payload: request
+  }
+}
+
+export function updateTodo(props){
+  const request = axios.put(todosURI + props.id, props);
+  console.log('updating ' + props.id + ' to ' + props.text);
+  return {
+    type:UPDATE_TODO,
     payload: request
   }
 }

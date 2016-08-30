@@ -73,7 +73,7 @@ router.get('/api/v1/todos', function(req, res){
 
 
 //update
-router.put('/api/v1/todos/:todo_id', function(req, res){var results = [];
+router.put('/api/v1/todos/:todo_id', function(req, res){
 
     var results = [];
 

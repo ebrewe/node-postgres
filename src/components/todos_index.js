@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchTodos, deleteTodo } from '../actions/index';
+import {fetchTodos, deleteTodo, updateTodo } from '../actions/index';
 import TodoNew from './todo_new';
+import TodoItem from './todo_item';
 
 class TodosIndex extends Component {
   componentWillMount(){
@@ -9,6 +10,15 @@ class TodosIndex extends Component {
   }
   updateStore(){
     this.props.fetchTodos();
+  }
+  updateText(id, e){
+    var newText = e.target.value;
+    if(newText.length < 1) return false;
+
+    this.props.updateTodo({id:id, text:newText, completed:false})
+    .then( ()=>{
+      this.updateStore();
+    });
   }
   checkOff(id){
     this.props.deleteTodo({id:id})
@@ -24,16 +34,7 @@ class TodosIndex extends Component {
         todoCompletedClass = "completed";
         todoCompletedIcon = <i className="fa fa-check" />
       }
-      return <div
-              className="todo row"
-              key={todo.id}>
-                <div className="col-sm-8" onClick={_this.checkOff.bind(this, todo.id)} style={{'cursor': 'pointer', 'padding':'5px'}}>
-                  <span style={{'width': '100%'}}>{todo.text}</span>
-                </div>
-                <div className="div-sm-4">
-                  <a href className={todoCompletedClass}>{todoCompletedIcon}</a>
-                </div>
-              </div>
+      return <TodoItem key={todo.id} parent={_this} text={todo.text} id={todo.id} todoCompletedIcon={todoCompletedIcon} todoCompletedClass={todoCompletedClass} />
     })
   }
   render(){
@@ -57,4 +58,4 @@ function mapStateToProps(state){
   return {todos: state.todos.all}
 }
 
-export default connect(mapStateToProps, {fetchTodos, deleteTodo})(TodosIndex);
+export default connect(mapStateToProps, {fetchTodos, deleteTodo, updateTodo})(TodosIndex);
