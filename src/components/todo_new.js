@@ -15,12 +15,17 @@ class TodoNew extends Component {
     let text = this.state.text;
     let completed = false;
 
-    this.props.createTodo({text:text, completed:completed});
-    this.setState({text:""});
-    this.props.onUpdate();
+    this.props.createTodo({text:text, completed:completed})
+    .then( ()=>{
+      this.setState({text:""});
+      this.props.onUpdate();
+    });
   }
   handleChange(e){
     const text = e.target.value;
+    //maybe move this validation into the save function
+    // like, if the stripped value.length is less than 1, return false
+    //that way line breaks are still allowed in the message.
     let stripText = text.replace(/(\r\n|\n|\r)/gm,"");
     this.setState({text: stripText});
   }

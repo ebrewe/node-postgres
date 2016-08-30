@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchTodos } from '../actions/index';
+import {fetchTodos, deleteTodo } from '../actions/index';
 import TodoNew from './todo_new';
 
 class TodosIndex extends Component {
@@ -10,8 +10,13 @@ class TodosIndex extends Component {
   updateStore(){
     this.props.fetchTodos();
   }
+  checkOff(id){
+    this.props.deleteTodo({id:id})
+    .then( ()=> {this.updateStore() });
+  }
   renderTodos(){
     console.log(this.props.todos)
+    let _this = this;
     return this.props.todos.map( (todo)=>{
       let todoCompletedClass = "not-completed",
           todoCompletedIcon = <i className="fa fa-times" />
@@ -22,8 +27,8 @@ class TodosIndex extends Component {
       return <div
               className="todo row"
               key={todo.id}>
-                <div className="col-sm-8">
-                  {todo.text}
+                <div className="col-sm-8" onClick={_this.checkOff.bind(this, todo.id)} style={{'cursor': 'pointer', 'padding':'5px'}}>
+                  <span style={{'width': '100%'}}>{todo.text}</span>
                 </div>
                 <div className="div-sm-4">
                   <a href className={todoCompletedClass}>{todoCompletedIcon}</a>
@@ -52,4 +57,4 @@ function mapStateToProps(state){
   return {todos: state.todos.all}
 }
 
-export default connect(mapStateToProps, {fetchTodos})(TodosIndex);
+export default connect(mapStateToProps, {fetchTodos, deleteTodo})(TodosIndex);
