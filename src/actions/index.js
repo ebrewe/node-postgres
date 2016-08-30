@@ -35,7 +35,7 @@ export function deleteTodo(props){
 
 export function updateTodo(props){
   const request = axios.put(todosURI + props.id, props);
-  console.log('updating ' + props.id + ' to ' + props.text);
+  console.log('updating ' + props.id + ' to ' + props.text + ' completed:' + props.complete);
   return {
     type:UPDATE_TODO,
     payload: request

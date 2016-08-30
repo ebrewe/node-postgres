@@ -11,11 +11,9 @@ class TodosIndex extends Component {
   updateStore(){
     this.props.fetchTodos();
   }
-  updateText(id, e){
-    var newText = e.target.value;
-    if(newText.length < 1) return false;
-
-    this.props.updateTodo({id:id, text:newText, completed:false})
+  updateText(id, text, complete, e){
+    if(text.length < 1) return false;
+    this.props.updateTodo({id:id, text:text, complete:complete})
     .then( ()=>{
       this.updateStore();
     });
@@ -28,13 +26,13 @@ class TodosIndex extends Component {
     console.log(this.props.todos)
     let _this = this;
     return this.props.todos.map( (todo)=>{
-      let todoCompletedClass = "not-completed",
-          todoCompletedIcon = <i className="fa fa-times" />
+      let todoCompleteClass = "not-complete",
+          todoCompleteIcon = <i className="fa fa-check" />
       if(todo.complete){
-        todoCompletedClass = "completed";
-        todoCompletedIcon = <i className="fa fa-check" />
+        todoCompleteClass = "complete";
+        todoCompleteIcon = <i className="fa fa-check undo" />
       }
-      return <TodoItem key={todo.id} parent={_this} text={todo.text} id={todo.id} todoCompletedIcon={todoCompletedIcon} todoCompletedClass={todoCompletedClass} />
+      return <TodoItem key={todo.id} parent={_this} complete={todo.complete} text={todo.text} id={todo.id} updateText={_this.updateText.bind(this)} todoCompleteIcon={todoCompleteIcon} todoCompleteClass={todoCompleteClass} />
     })
   }
   render(){

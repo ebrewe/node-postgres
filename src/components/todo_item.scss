@@ -1,0 +1,18 @@
+.todo{
+  input{
+    padding:5px 10px;
+    border:none;
+    box-shadow:none;
+    outline:none;
+    border-bottom:2px solid rgba(0,0,0,0);
+
+    &.editing{
+      border-bottom-color:black;
+    }
+  }
+}
+
+
+.fa-check.undo{
+  text-decoration:line-through;
+}
