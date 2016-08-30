@@ -9,6 +9,9 @@ class TodoNew extends Component {
   }
   handleSubmit(e){
     e.preventDefault();
+    if(this.state.text.length < 1){
+      return false;
+    }
     let text = this.state.text;
     let completed = false;
 
@@ -17,13 +20,15 @@ class TodoNew extends Component {
     this.props.onUpdate();
   }
   handleChange(e){
-    this.setState({text: e.target.value});
+    const text = e.target.value;
+    let stripText = text.replace(/(\r\n|\n|\r)/gm,"");
+    this.setState({text: stripText});
   }
   render (){
     return (
       <form onSubmit={this.handleSubmit.bind(this)} ref="newTodoForm">
         <textarea ref="todoText" value={this.state.text} onChange={this.handleChange.bind(this)} placeholder="enter a new todo..." />
-        <input type="submit" value="Add" />
+        <input type="submit" value="Add" onClick={this.handleSubmit.bind(this)}/>
       </form>
     );
   }

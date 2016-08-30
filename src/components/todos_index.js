@@ -19,7 +19,16 @@ class TodosIndex extends Component {
         todoCompletedClass = "completed";
         todoCompletedIcon = <i className="fa fa-check" />
       }
-      return <div className="todo" key={todo.id}>{todo.text}<a href className={todoCompletedClass}>{todoCompletedIcon}</a></div>
+      return <div
+              className="todo row"
+              key={todo.id}>
+                <div className="col-sm-8">
+                  {todo.text}
+                </div>
+                <div className="div-sm-4">
+                  <a href className={todoCompletedClass}>{todoCompletedIcon}</a>
+                </div>
+              </div>
     })
   }
   render(){
@@ -27,9 +36,11 @@ class TodosIndex extends Component {
       return <div>Loading</div>
     }
     return(
-      <div>
-        {this.renderTodos()}
-        <TodoNew onUpdate={this.updateStore.bind(this)} />
+      <div style={{'width': '320px'}}>
+        <div>
+          {this.renderTodos()}
+          <TodoNew onUpdate={this.updateStore.bind(this)} />
+        </div>
       </div>
     );
   }
