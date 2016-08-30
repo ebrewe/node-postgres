@@ -104,4 +104,39 @@ router.put('/api/v1/todos/:todo_id', function(req, res){var results = [];
 
 });
 
+//delete
+//update
+router.delete('/api/v1/todos/:todo_id', function(req, res){var results = [];
+
+    var results = [];
+
+    var id = req.params.todo_id;
+
+
+    pg.connect(connectionString, function(err, client, done){
+        if(err){
+          done();
+          console.log(err);
+          return res.status(500).json({success:false, data:err});
+        }
+
+        client.query("DELETE FROM items WHERE id=($1)", [id]);
+
+
+        var query = client.query("SELECT * FROM items ORDER BY id ASC");
+
+        //stream results back one row at a time
+        query.on('row', function(row){
+          results.push(row);
+        });
+
+        query.on('end', function(){
+            done();
+            return res.json(results);
+        });
+
+    });
+
+});
+
 module.exports = router;
