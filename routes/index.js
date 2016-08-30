@@ -42,4 +42,29 @@ router.post('/api/v1/todos', function(req, res){
   });
 });
 
+//READ
+router.get('/api/v1/todos', function(req, res){
+  var results = [];
+
+  pg.connect(connectionString, function(err, client, done){
+      if(err){
+        done();
+        console.log(err);
+        return res.status(500).json({success:false, data:err});
+      }
+
+      var query = client.query("SELECT * FROM items ORDER BY id ASC");
+
+      //stream results back one row at a time
+      query.on('row', function(row){
+        results.push(row);
+      });
+
+      query.on('end', function(){
+          done();
+          return res.json(results);
+      });
+
+  });
+})
 module.exports = router;
