@@ -1,7 +1,7 @@
 .todo{
 
   margin-bottom:15px;
-  
+
   input{
     width:90%;
     padding:5px 10px;
@@ -16,26 +16,42 @@
   }
 }
 
-.textField{
+.text-field{
   position:relative;
+  transition:all .6s .2s ease-out;
+
+  &:after{
+    display:block;
+    position:absolute;
+    right:2%;
+    width:0;
+    height:2px;
+    top:50%;
+    content:"";
+    background:#e62117;
+    transform:rotate(180);
+    transition:all .3s ease-out;
+  }
+
+  &.delete {
+    opacity: 0;
+    &:after{
+      width:104%;
+    }
+  }
+
   i{
     display:block;
     position:absolute;
     right:10px;
+    top:10px;
     &:after{
-      display:block;
-      position:absolute;
-      left:0;
-      top:0;
-      width:100%;
-      height:30px;
-      font-family:"FontAwesome";
-      content:"\f00d";
+      display:none;
     }
 
     &:focus, &:hover{
-      :after{
-        display:block;
+      &:after{
+        display:block!important;
         position:absolute;
         left:0;
         top:0;

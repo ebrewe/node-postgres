@@ -33,7 +33,16 @@ class TodosIndex extends Component {
         todoCompleteClass = "complete";
         todoCompleteIcon = <i className="fa fa-check undo" />
       }
-      return <TodoItem key={todo.id} parent={_this} complete={todo.complete} text={todo.text} id={todo.id} updateText={_this.updateText.bind(this)} todoCompleteIcon={todoCompleteIcon} todoCompleteClass={todoCompleteClass} />
+      return <TodoItem
+              key={todo.id}
+              parent={_this}
+              complete={todo.complete}
+              text={todo.text}
+              id={todo.id}
+              updateText={_this.updateText.bind(this)}
+              checkOff={this.checkOff.bind(this)} 
+              todoCompleteIcon={todoCompleteIcon}
+              todoCompleteClass={todoCompleteClass} />
     })
   }
   render(){
