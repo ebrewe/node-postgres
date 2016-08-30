@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {fetchTodos } from '../actions/index';
+import TodoNew from './todo_new';
 
 class TodosIndex extends Component {
   componentWillMount(){
+    this.props.fetchTodos();
+  }
+  updateStore(){
     this.props.fetchTodos();
   }
   renderTodos(){
@@ -23,7 +27,10 @@ class TodosIndex extends Component {
       return <div>Loading</div>
     }
     return(
-      <div>{this.renderTodos()}</div>
+      <div>
+        {this.renderTodos()}
+        <TodoNew onUpdate={this.updateStore.bind(this)} />
+      </div>
     );
   }
 }
