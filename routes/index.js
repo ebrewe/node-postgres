@@ -4,9 +4,12 @@ var path = require('path');
 var pg=require('pg');
 var connectionString = require(path.join(__dirname, '../', 'config.js'));
 
+router.use(express.static(path.join(__dirname, 'public')));
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render(path.join(__dirname, '../views', 'index.jade'), { title: 'Node Express + Postgres' });
 });
 
 //POST
