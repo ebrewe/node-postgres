@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {fetchTodos, deleteTodo, updateTodo } from '../actions/index';
 import TodoNew from './todo_new';
 import TodoItem from './todo_item';
+require('./todo_list.scss');
 
 class TodosIndex extends Component {
   componentWillMount(){
@@ -37,10 +38,10 @@ class TodosIndex extends Component {
   }
   render(){
     if(!this.props.todos.length){
-      return <div>Loading</div>
+      return <div style={{'width': '320px', 'margin':'0 auto'}}>Loading</div>
     }
     return(
-      <div style={{'width': '320px'}}>
+      <div style={{'width': '320px', 'margin':'30px auto'}}>
         <div>
           {this.renderTodos()}
           <TodoNew onUpdate={this.updateStore.bind(this)} />

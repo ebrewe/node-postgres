@@ -31,15 +31,13 @@ export default class TodoItem extends Component{
     this.setState({changed:false})
   }
   render(){
-    let editClass = this.state.editing ? "editing" : "";
+    let editClass = this.state.editing ? "pencil" : "times";
+    let textEditClass = this.state.editing ? "editing" : "";
     return(
-      <div  className="todo row">
-        <div className="col-sm-8 text-field" style={{'cursor': 'pointer', 'padding':'5px'}}>
-          <i className="fa fa-times" onClick={this.props.parent.checkOff.bind(this.props.parent, this.props.id)} style={{'cursor':'pointer'}} />
-          <input type="text" onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} onChange={this.handleChange.bind(this)} className={editClass} ref="textField" value={this.state.text} />
-        </div>
-        <div className="div-sm-4">
-          <a href className={this.props.todoCompleteClass} onClick={this.updateComplete.bind(this)}>{/*this.props.todoCompleteIcon*/}</a>
+      <div  className="todo clearfix">
+        <div className="col-sm-12 text-field" style={{'cursor': 'pointer', 'padding':'5px'}}>
+          <input type="text" onFocus={this.handleFocus.bind(this)} onBlur={this.handleBlur.bind(this)} onChange={this.handleChange.bind(this)} className={textEditClass} ref="textField" value={this.state.text} />
+          <i className={`fa fa-${editClass}`} onClick={this.props.parent.checkOff.bind(this.props.parent, this.props.id)} style={{'cursor':'pointer'}} />
         </div>
       </div>
     )
