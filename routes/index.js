@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
   res.render(path.join(__dirname, '../views', 'index.jade'), { title: 'Node Express + Postgres' });
 });
 
+
 //POST
 router.post('/api/v1/todos', function(req, res){
   var results = [];
@@ -140,6 +141,11 @@ router.delete('/api/v1/todos/:todo_id', function(req, res){var results = [];
 
     });
 
+});
+
+
+router.use(function(req, res, next){
+  res.render(path.join(__dirname, '../views', 'index.jade'), { title: 'Node Express + Postgres' });
 });
 
 module.exports = router;
